@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo</title>
+
+  <style>
+    @keyframes slideIn {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideOut {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    #container {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: calc(50% - 100px);
+      top: calc(50% - 100px);
+      background-color: darkorange;
+    }
+
+    /* #container div {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: blueviolet;
+      opacity: 0.4;
+      animation: 0.5s ease-out slideOut;
+    } */
+
+    /* #container div.active {
+      animation: 0.5s ease-out slideIn;
+    } */
+  </style>
+</head>
+<body>
+
+  <script src="../src/mscope.js" type="module"></script>
+
+  <script>
+
+    // function parse(strings, ...values) {
+    //   console.log(strings, values)
+
+    //   values[0]();
+
+    //   let str = '';
+    //   strings.forEach((string, i) => {
+    //       str += string + values[i];
+    //   });
+    //   return str;
+    // }
+
+    // const name = 'Snowy';
+    // const age = 14;
+    // const show = true;
+
+    // const sentence = parse`<div class="${ show => show ? 'active' : '' }"></div>`;
+    // console.log(sentence)
+
+  </script>
+  
+</body>
+</html>
