@@ -1,7 +1,9 @@
-// @ts-nocheck
 import { createTemplate } from './functions/createTemplate.js';
 
-export function microScope(init) {
+export function microScope({ state: init, config = { inserts: ['text', 'component'] }}) {
+
+  console.log(config)
+
   const funcs = [];
 
   const handler = {
@@ -16,10 +18,8 @@ export function microScope(init) {
 
   return (strings, ...directives) => {
     const template = createTemplate(strings.reduce((acc, value, i) => {
-      return i === strings.length - 1 ? `${acc}${value}` : directives[i].text ? `${acc}${value}<template data-ms="${i}"></template>` : `${acc}${value} data-ms="${i}"`;
+      return i === strings.length - 1 ? `${acc}${value}` : directives[i] ? `${acc}${value}<template data-ms="${i}"></template>` : `${acc}${value} data-ms="${i}"`;
     }, ``));
-
-    document.body.appendChild(template);
 
     directives.forEach((directive, i) => {
       for (const [key, select] of Object.entries(directive)) {
@@ -41,6 +41,10 @@ export function microScope(init) {
           case 'if':
             funcs.push(() => elem.style.display = select(proxy) ? '' : 'none');
             break;
+
+          case 'component':
+            funcs.push(() => elem.style.display = select(proxy) ? '' : 'none');
+            break;
         
           default:
             elem.addEventListener(key, (event) => select(event, proxy));
@@ -49,5 +53,6 @@ export function microScope(init) {
       }
     });
     proxy._ready = true;
+    return template;
   }
 }
