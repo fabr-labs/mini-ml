@@ -14,12 +14,11 @@ export function microScope({ state: init }) {
   const proxy = new Proxy(init, proxyHandler);
 
   return (strings, ...directives) => {
-    const template = createTemplate(strings.reduce((acc, val, i) => `${acc}${val}${directives[i]?.placeholder({ id: i, acc, val })}`, ''));
+    const template = createTemplate(strings.reduce((acc, val, i) =>
+      `${acc}${val}${directives[i]?.placeholder({ id: i, acc, val })}`, ''));
     
-    directives.forEach((directive, id) => {
-      const elem = template.querySelector(`[data-ms="${id}"]`);
-      directive.handler({ id, funcs, elem, proxy });
-    });
+    directives.forEach((directive, id) => 
+      directive.handler({ id, funcs, elem: template.querySelector(`[data-ms="${id}"]`), proxy }));
 
     proxy._ready = true;
     return template;
