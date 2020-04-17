@@ -1,6 +1,7 @@
-export const text = {
-  handler({ id, funcs, elem, select, proxy }) {
-
+export const text = select => ({
+  handler({ id, funcs, elem, proxy }) {
+    const { parentNode } = elem;
+    funcs.push(() => parentNode.innerText = select(proxy));
   },
-  placeholder: ``,
-}
+  placeholder: ({ id }) => `<div data-ms="${id}"></div>`,
+});

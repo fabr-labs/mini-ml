@@ -1,5 +1,5 @@
 export const component = {
-  handler({ id, funcs, elem, select, proxy }) {
+  handler({ id, funcs, elem, proxy }) {
 
   },
   placeholder: ``,

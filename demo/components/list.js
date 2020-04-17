@@ -1,7 +1,7 @@
 import { microScope } from '../../src/microscope.js';
 
 export function list({ list, action, buttonText }) {
-  return microScope({ state })`
+  return microScope({ state, config })`
     <div id="list">
       // ${list.map(({ id, title }) => `
       //   <div id="list">
