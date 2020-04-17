@@ -1,7 +1,7 @@
 export const event = (key, select) => ({
-  handler({ funcs, elem, proxy }) {
-    const { parentNode } = elem;
-    funcs.push(() => parentNode.innerText = select(proxy));
+  handler: ({ elem, proxy }) => {
+    console.log(elem, key)
+    elem.addEventListener(key, (event) => select(event, proxy));
   },
   placeholder: ({ id }) => ` data-ms="${id}"`,
 });

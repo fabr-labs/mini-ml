@@ -4,16 +4,17 @@ import {
   // show,
   text,
   // classList,
-  // component,
+  component,
 } from '../src/handlers/index.js';
 
 import { data } from './data/data.js';
-// import { list } from './components/list.js';
+import { List } from './components/list.js';
 
 const doneAction = event('click', (event, state) => {
-    const itemId = event.target.dataset['data-item'];
-    const item = state.activeItems.splice(state.activeItems.find(item => item.id === itemId), 1)[0];
-    state.doneItems.splice(state.doneItems.length, 0, item);
+  console.log('CLEEK')
+  const itemId = event.target.dataset['data-item'];
+  const item = state.activeItems.splice(state.activeItems.find(item => item.id === itemId), 1)[0];
+  state.doneItems.splice(state.doneItems.length, 0, item);
 });
 
 const restoreAction = event('click', (event, state) => {
@@ -22,11 +23,21 @@ const restoreAction = event('click', (event, state) => {
   state.activeItems.splice(state.activeItems.length, 0, item);
 });
 
-
 const demo = microScope({ state: data })`
   <div id="container">
     <h1>TODO</h1>
-    <h2>${ text((state) => state.name) }</h2>  
+    <h2>${ text((state) => state.name) }</h2>
+    <div id="list-container">
+      ${ component(state => {
+        switch (state.list) {
+          case 'active':
+            return List({ state, list: state.activeItems, action: doneAction, buttonText: 'DONE' });
+
+          case 'done':
+            return List({ state, list: state.doneItems, action: restoreAction, buttonText: 'RESTORE' });
+        }
+      })}
+    </div>
   </div>
 `;
 

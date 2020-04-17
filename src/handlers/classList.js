@@ -6,5 +6,5 @@ export const classList = select => ({
       }
     });
   },
-  placeholder: ({ id }) => ` data-ms="${id}"`,
+  placeholder: ({ ins, id }) => ` data-ms="${id}"`
 });
