@@ -13,7 +13,7 @@ export function microScope({ state = {}, funcs = new Set() }) {
 
   setTimeout(() => {
     proxy._ready = true;
-  }, 1000);
+  }, 0);
 
   return (strings, ...directives) => {
     const template = createTemplate(strings.reduce((acc, val, i) => {
