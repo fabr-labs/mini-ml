@@ -1,10 +1,7 @@
 import { microScope } from '../src/microscope.js';
 import {
   event,
-  // show,
   text,
-  // classList,
-  component,
   list as li,
 } from '../src/handlers/index.js';
 
@@ -12,29 +9,38 @@ import { data } from './data/data.js';
 import { List } from './components/List.js';
 
 const doneAction = event('click', (event, state) => {
-  console.log('CLEEK')
-  const itemId = event.target.dataset['data-item'];
-  const item = state.activeItems.splice(state.activeItems.find(item => item.id === itemId), 1)[0];
-  state.doneItems.splice(state.doneItems.length, 0, item);
+  const itemId    = event.target.dataset['item'];
+  const itemIndex = state.activeItems.findIndex(item => item.id == itemId);
+  const item      = state.activeItems[itemIndex]; 
+
+  state.activeItems = [...state.activeItems.slice(0, itemIndex), ...state.activeItems.slice(itemIndex + 1)];
+  state.doneItems   = [...state.doneItems.slice(0, itemIndex), item, ...state.doneItems.slice(itemIndex + 1)];
 });
 
 const restoreAction = event('click', (event, state) => {
-  const itemId = event.target.dataset['data-item'];
-  const item = state.doneItems.splice(state.doneItems.find(item => item.id === itemId), 1)[0];
-  state.activeItems.splice(state.activeItems.length, 0, item);
+  const itemId    = event.target.dataset['item'];
+  const itemIndex = state.doneItems.findIndex(item => item.id == itemId);
+  const item      = state.doneItems[itemIndex];
+  
+  state.doneItems = [...state.doneItems.slice(0, itemIndex), ...state.doneItems.slice(itemIndex + 1)];
+  state.activeItems   = [...state.activeItems.slice(0, itemIndex), item, ...state.activeItems.slice(itemIndex + 1)]; 
 });
 
-export const ms = microScope({ state: data });
+function activeList(state) {
+  return state.list === 'active' ? state.activeItems : state.doneItems;
+}
 
-const demo = ms`
+export const html = microScope({ state: data });
+
+const demo = html`
   <div id="container">
     <h1>TODO</h1>
     <h2>${ text(state => state.name) }</h2>
     <div id="todos">
-      ${ li(state => state.activeItems.map(({ title }, id) => ms`
+      ${ li(state => activeList(state).map(({ title, id }) => html`
         <div class="item">
           <span>${title}</span>
-          <button data-item="${id}" ${ event('click', () => console.log('HEY HEY HEY!')) } >${ state.list === 'active' ? 'DONE' : 'RESTORE' }</button>
+          <button data-item="${id}" ${doneAction}>${ state.list === 'active' ? 'DONE' : 'RESTORE' }</button>
         </div>
       `))}
     </div>
@@ -42,38 +48,3 @@ const demo = ms`
 `;
 
 document.body.appendChild(demo);
-
-// ${ component(state => {
-//   switch (state.list) {
-//     case 'active':
-//       return List({ state, list: state.activeItems, action: doneAction, buttonText: 'DONE' });
-
-//     case 'done':
-//       return List({ state, list: state.doneItems, action: restoreAction, buttonText: 'RESTORE' });
-//   }
-// })}
-
-// state.page === 'activeItems' ?
-//       page({ list: state.activeItems ,button: doneButton }) :
-//       page({ list: state.activeItems ,button: doneButton })
-
-
-// <h2>${{ text: (state) =>  state.name }}</h2>
-// <h4 ${{ if: (state) => !state.name }} class="warning-text">
-//   Invalid name!
-// </h4>
-// <div class="box" ${{ class: (state) => ({ active: state.name, isMike: state.name === 'mike' }) }}>
-
-// </div>
-// <input ${{ input: (event, state) =>  state.name = event.target.value, value: (state) => state.name }}></input>
-// <button ${{ click: (event, state) => state.name = 'mike' }}>RESET</button>
-
-    // component: state => {
-    //   switch (state.list) {
-    //     case 'active':
-    //       return list({ list: state.activeItems, action: doneAction, buttonText: 'DONE' });
-
-    //     case 'done':
-    //       return list({ list: state.doneItems, action: restoreAction, buttonText: 'RESTORE' });
-    //   }
-    // }}}
