@@ -1,25 +1,40 @@
-import { microScope } from '../../src/microscope.js';
+import { microScope as ms } from '../../src/microscope.js';
 
 import {
   event,
-  // show,
   text,
-  // classList,
   component,
+  list as l,
 } from '../../src/handlers/index.js';
 
-export const List = ({ state, list, action, buttonText }) => {
-
-  console.log(action)
-
-  return microScope({ state: {} })`
+export const List = ({ list, action, buttonText }) => {
+  return ({ state, funcs }) => ms({ state, funcs })`
     <div id="list">
-      ${list.map(({ id, title }) => `
+      ${ l(list, ({ title }) => ms({ state, funcs })`
         <div class="item">
           <span>${title}</span>
-          <button data-item="${id}" ${ event('click', state => { console.log('HO') }) }>${ buttonText }</button>
         </div>
       `)}
     </div>
-`
+  `
 }
+
+// export const List = ({ list, action, buttonText }) => {
+//   return ({ state, funcs }) => ms({ state, funcs })`
+//     <div id="list">
+//       ${list.map(({ id, title }) => ms({ state, funcs })`
+//         <div class="item">
+//           <span>${title}</span>
+//           <button>${ text(state => state.name) }</button>
+//         </div>
+//       `).join('')}
+//     </div>
+//   `
+// }
+
+// ${ component(microScope({ state })`<button data-item="${id}"  >${ buttonText }</button>` )}
+
+// ${ event('click', () => console.log('HEY HEY HEY!')) }
+
+
+// ${ component(microScope({ state: {} })`<button data-item="${id}" ${ event('click', () => console.log('HEY HEY HEY!')) } >${ buttonText }</button>` }

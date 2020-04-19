@@ -5,10 +5,11 @@ import {
   text,
   // classList,
   component,
+  list as li,
 } from '../src/handlers/index.js';
 
 import { data } from './data/data.js';
-import { List } from './components/list.js';
+import { List } from './components/List.js';
 
 const doneAction = event('click', (event, state) => {
   console.log('CLEEK')
@@ -23,25 +24,34 @@ const restoreAction = event('click', (event, state) => {
   state.activeItems.splice(state.activeItems.length, 0, item);
 });
 
-const demo = microScope({ state: data })`
+export const ms = microScope({ state: data });
+
+const demo = ms`
   <div id="container">
     <h1>TODO</h1>
-    <h2>${ text((state) => state.name) }</h2>
-    <div id="list-container">
-      ${ component(state => {
-        switch (state.list) {
-          case 'active':
-            return List({ state, list: state.activeItems, action: doneAction, buttonText: 'DONE' });
-
-          case 'done':
-            return List({ state, list: state.doneItems, action: restoreAction, buttonText: 'RESTORE' });
-        }
-      })}
+    <h2>${ text(state => state.name) }</h2>
+    <div id="todos">
+      ${ li(state => state.activeItems.map(({ title }, id) => ms`
+        <div class="item">
+          <span>${title}</span>
+          <button data-item="${id}" ${ event('click', () => console.log('HEY HEY HEY!')) } >${ state.list === 'active' ? 'DONE' : 'RESTORE' }</button>
+        </div>
+      `))}
     </div>
   </div>
 `;
 
 document.body.appendChild(demo);
+
+// ${ component(state => {
+//   switch (state.list) {
+//     case 'active':
+//       return List({ state, list: state.activeItems, action: doneAction, buttonText: 'DONE' });
+
+//     case 'done':
+//       return List({ state, list: state.doneItems, action: restoreAction, buttonText: 'RESTORE' });
+//   }
+// })}
 
 // state.page === 'activeItems' ?
 //       page({ list: state.activeItems ,button: doneButton }) :
