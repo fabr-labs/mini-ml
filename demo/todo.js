@@ -20,11 +20,11 @@ const demo = html`
   <div id="container">
     <h1>TODO</h1>
     <h2>${ todoListName }</h2>
-    <button ${ pageButtonAction }>${ pageButtonText }</button>
+    ${ addTodoComponent }
     <div id="todos">
       ${ todoListComponent }
     </div>
-    ${ addTodoComponent }
+    <button ${ pageButtonAction }>${ pageButtonText }</button>
   </div>
 `;
 
