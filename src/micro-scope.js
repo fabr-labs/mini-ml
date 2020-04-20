@@ -21,7 +21,7 @@ export function microScope({ state = {}, funcs = new Set() }) {
     }, ''));
 
     directives.forEach((directive, id) => {
-      return directive.handler && directive.handler({ id, funcs, elem: template.querySelector(`[data-ms="${id}"]`), store });
+      return directive.handler && directive.handler({ id, funcs, elem: template.querySelector(`[data-ms="${id}"]`) || template, store });
     });
 
     return template;
