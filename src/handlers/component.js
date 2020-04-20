@@ -1,10 +1,7 @@
 export const component = select => ({
-  handler: ({ id, funcs, elem, proxy }) => {
+  handler: ({ id, funcs, elem, store }) => {
     const { parentNode } = elem;
-
-    funcs.push(() => {
-      parentNode.replaceChild(select(proxy), elem)
-    });
+    parentNode.replaceChild(select(store), elem);
   },
-  placeholder: ({ id }) => `<template data-ms="${id}"></template>`,
+  placeholder: ({ id }) => `<div id="add-todo" data-ms="${id}"></div>`,
 });

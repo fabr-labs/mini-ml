@@ -1,7 +1,7 @@
 import { createTemplate } from './functions/createTemplate.js';
 
 export function microScope({ state = {}, funcs = new Set() }) {
-  const proxyHandler = {
+  const storeHandler = {
     set(target, property, value) {
       target[property] = value;
       funcs.forEach(func => func(target));
@@ -9,10 +9,10 @@ export function microScope({ state = {}, funcs = new Set() }) {
     }
   };
 
-  const proxy = new Proxy(state, proxyHandler);
+  const store = new Proxy(state, storeHandler);
 
   setTimeout(() => {
-    proxy._ready = true;
+    store._ready = true;
   }, 0);
 
   return (strings, ...directives) => {
@@ -21,7 +21,7 @@ export function microScope({ state = {}, funcs = new Set() }) {
     }, ''));
 
     directives.forEach((directive, id) => {
-      return directive.handler && directive.handler({ id, funcs, elem: template.querySelector(`[data-ms="${id}"]`), proxy });
+      return directive.handler && directive.handler({ id, funcs, elem: template.querySelector(`[data-ms="${id}"]`), store });
     });
 
     return template;

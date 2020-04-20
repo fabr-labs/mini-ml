@@ -1,4 +1,4 @@
 export const show = select => ({
-  handler: ({ funcs, elem, proxy }) => funcs.push(() => elem.style.display = select(proxy) ? '' : 'none'),
+  handler: ({ funcs, elem, store }) => funcs.push(() => elem.style.display = select(store) ? '' : 'none'),
   placeholder: ({ id }) => ` data-ms="${id}"`,
 });

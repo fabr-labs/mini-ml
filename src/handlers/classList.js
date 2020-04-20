@@ -1,7 +1,7 @@
 export const classList = select => ({
-  handler({ funcs, elem, proxy }) {
+  handler({ funcs, elem, store }) {
     funcs.push(() => {
-      for (const [klass, add] of Object.entries(select(proxy))) {
+      for (const [klass, add] of Object.entries(select(store))) {
         elem.classList[add ? 'add' : 'remove' ](klass)
       }
     });

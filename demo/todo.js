@@ -1,7 +1,8 @@
 import { microScope } from '../src/micro-scope.js';
 
 import { data } from './data/data.js';
-import { todoList } from './components/list.component.js';
+import { todoList as todoListComponent } from './components/list.component.js';
+import { addTodo as addTodoComponent } from './components/addTodo.component.js';
 
 import {
   event,
@@ -11,14 +12,19 @@ import {
 
 export const html = microScope({ state: data });
 
+const todoListName = text(state => state.name);
+const pageButtonAction = event('click', (event, state) => { state.list = state.list === 'active' ? 'done' : 'active' });
+const pageButtonText = text(state => state.list === 'active' ? 'DONE TODOS' : 'ACTIVE TODOS');
+
 const demo = html`
   <div id="container">
     <h1>TODO</h1>
-    <h2>${ text(state => state.name) }</h2>
-    <button ${ event('click', (event, state) => { state.list = state.list === 'active' ? 'done' : 'active' }) } >${text(state => state.list === 'active' ? 'DONE TODOS' : 'ACTIVE TODOS')}</button>
+    <h2>${ todoListName }</h2>
+    <button ${ pageButtonAction }>${ pageButtonText }</button>
     <div id="todos">
-      ${ todoList }
+      ${ todoListComponent }
     </div>
+    ${ addTodoComponent }
   </div>
 `;
 
