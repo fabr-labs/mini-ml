@@ -13,5 +13,5 @@ export const list = select => ({
 
     funcs.add(updateList);
   },
-  placeholder: ({ id }) => `<template data-ms="${id}"></template>`,
+  placeholder: ({ id }) => `<div data-ms="${id}"></div>`,
 });

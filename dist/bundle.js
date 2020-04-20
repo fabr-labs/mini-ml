@@ -1,2 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.microScope=function({state:e}){const r=[],t=new Proxy(e,{set:(e,t,c)=>(e[t]=c,r.forEach(r=>r(e)),!0)});return(e,...c)=>{const n=function(e){const r=document.createElement("div");return r.innerHTML=e,r.firstElementChild}(e.reduce((e,r,t)=>`${e}${r}${c[t]&&c[t].placeholder({id:t,acc:e,val:r})}`,""));return c.forEach((e,c)=>e.handler({id:c,funcs:r,elem:n.querySelector(`[data-ms="${c}"]`),proxy:t})),t._ready=!0,n}};
-//# sourceMappingURL=bundle.js.map
