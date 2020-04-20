@@ -1,13 +1,13 @@
-import { microScope } from '../src/microscope.js';
+import { microScope } from '../src/micro-scope.js';
+
+import { data } from './data/data.js';
+import { todoList } from './components/list.component.js';
+
 import {
   event,
   text,
   list as li,
 } from '../src/handlers/index.js';
-
-import { data } from './data/data.js';
-import { todoList } from './components/list.component.js';
-
 
 export const html = microScope({ state: data });
 
