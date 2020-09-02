@@ -1,6 +1,6 @@
 import { createTemplate } from './functions/createTemplate.js';
 
-export function microScope({ state = {}, funcs = new Set() }) {
+export function miniMoo({ state = {}, funcs = new Set() }) {
   const storeHandler = {
     set(target, property, value) {
       target[property] = value;
@@ -20,8 +20,8 @@ export function microScope({ state = {}, funcs = new Set() }) {
       return `${acc}${val}${directives[i] && directives[i].placeholder ? directives[i].placeholder({ id: i }) : directives[i] }`
     }, ''));
 
-    directives.forEach((directive, id) => {
-      return directive.handler && directive.handler({ id, funcs, elem: template.querySelector(`[data-ms="${id}"]`) || template, store });
+    directives.forEach((directive, i) => {
+      return directive.handler && directive.handler({ id: i, funcs, elem: template.querySelector(`[data-ms-${i}]`) || template, store });
     });
 
     return template;

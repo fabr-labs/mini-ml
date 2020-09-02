@@ -1,25 +1,13 @@
-import {
-  event,
-  component,
-} from '../../src/handlers/index.js';
-
 import { html } from '../todo.js';
+import { component } from '../../src/handlers/index.js';
 
-let newId = 2000;
+import { addTodoAction } from '../actions/add-todo.action.js';
 
-const addAction = event('submit', (event, state) => {
-  event.preventDefault();
-
-  const form = event.target;
-  const formData = new FormData(form);
-  const newTodo = formData.get('newTodo');
-
-  state.activeItems = [...state.activeItems, { id: newId++, title: newTodo }];
-});
-
-export const addTodo = component(state => html`
-  <form id="addTodo" ${ addAction }>
-    <input type="text" name="newTodo">
-    <button type="submit">ADD</button>
-  </form>
-`);
+export const addTodo = component(
+  (state) => html`
+    <form id="addTodo" ${addTodoAction}>
+      <input type="text" name="newTodo" />
+      <button type="submit">ADD</button>
+    </form>
+  `
+);

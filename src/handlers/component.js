@@ -3,5 +3,5 @@ export const component = select => ({
     const { parentNode } = elem;
     parentNode.replaceChild(select(store), elem);
   },
-  placeholder: ({ id }) => `<div id="add-todo" data-ms="${id}"></div>`,
+  placeholder: ({ id }) => `<div data-ms-${id}></div>`,
 });

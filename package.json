@@ -1,9 +1,9 @@
 {
-  "name": "microscope",
+  "name": "mini-moo",
   "version": "1.0.0",
-  "description": "A wee JavaScript lib for creating injectable templates.",
+  "description": "MiniMoo is a minimal JavaScript templating system using tagged template literals and pure functions.",
   "main": "dist/bundle.js",
-  "repository": "git@github.com:lamnr-labs/microscope.git",
+  "repository": "git@github.com:fabr-labs/mini-moo.git",
   "author": "nverba <distantstate@gmail.com>",
   "license": "MIT",
   "private": false,

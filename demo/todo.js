@@ -1,30 +1,29 @@
-import { microScope } from '../src/micro-scope.js';
+import { miniMoo } from '../src/mini-moo.js';
+import { event, text } from '../src/handlers/index.js';
 
-import { data } from './data/data.js';
 import { todoList as todoListComponent } from './components/list.component.js';
 import { addTodo as addTodoComponent } from './components/addTodo.component.js';
 
-import {
-  event,
-  text,
-  list as li,
-} from '../src/handlers/index.js';
+import { changePageAction } from './actions/change-page.action.js';
 
-export const html = microScope({ state: data });
+import { data } from './data/data.js';
 
-const todoListName = text(state => state.name);
-const pageButtonAction = event('click', (event, state) => { state.list = state.list === 'active' ? 'done' : 'active' });
-const pageButtonText = text(state => state.list === 'active' ? 'DONE TODOS' : 'ACTIVE TODOS');
+// Export the html template function 
+// for child components to share state.
+export const html = miniMoo({ state: data });
+
+
+// Define dynamic text.
+const todoListName = text((state) => state.name);
+const changePageButtonText = text((state) => (state.list === 'active' ? 'DONE TODOS' : 'ACTIVE TODOS'));
 
 const demo = html`
   <div id="container">
     <h1>TODO</h1>
-    <h2>${ todoListName }</h2>
-    ${ addTodoComponent }
-    <div id="todos">
-      ${ todoListComponent }
-    </div>
-    <button ${ pageButtonAction }>${ pageButtonText }</button>
+    <h2>${todoListName}</h2>
+    ${addTodoComponent}
+    <div id="todos">${todoListComponent}</div>
+    <button ${changePageAction}>${changePageButtonText}</button>
   </div>
 `;
 
