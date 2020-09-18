@@ -1,6 +1,6 @@
-import { createTemplate } from './functions/createTemplate.js';
+import { createTemplate } from './functions/create-template.js';
 
-export function miniMoo({ state = {}, funcs = new Set() }) {
+export function miniMl({ state = {}, funcs = new Set() }) {
   const storeHandler = {
     set(target, property, value) {
       target[property] = value;

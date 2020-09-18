@@ -1,8 +1,8 @@
-import { miniMoo } from '../src/mini-moo.js';
+import { miniMl } from '../src/mini-ml.js';
 import { event, text } from '../src/handlers/index.js';
 
 import { todoList as todoListComponent } from './components/list.component.js';
-import { addTodo as addTodoComponent } from './components/addTodo.component.js';
+import { addTodo as addTodoComponent } from './components/add-todo.component.js';
 
 import { changePageAction } from './actions/change-page.action.js';
 
@@ -10,7 +10,7 @@ import { data } from './data/data.js';
 
 // Export the html template function 
 // for child components to share state.
-export const html = miniMoo({ state: data });
+export const html = miniMl({ state: data });
 
 
 // Define dynamic text.

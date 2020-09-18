@@ -1,9 +1,9 @@
 {
   "name": "mini-moo",
   "version": "1.0.0",
-  "description": "MiniMoo is a minimal JavaScript templating system using tagged template literals and pure functions.",
+  "description": "Mini ML, /ˈmɪnɪm(ə)l/ A minimal JavaScript templating system with basic state management using tagged template literals and pure functions.",
   "main": "dist/bundle.js",
-  "repository": "git@github.com:fabr-labs/mini-moo.git",
+  "repository": "git@github.com:fabr-labs/mini-ml.git",
   "author": "nverba <distantstate@gmail.com>",
   "license": "MIT",
   "private": false,
